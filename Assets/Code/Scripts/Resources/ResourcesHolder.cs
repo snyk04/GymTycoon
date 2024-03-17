@@ -1,32 +1,41 @@
 using System.Collections.Generic;
-using Code.Scripts.Resources;
+using Code.Scripts.Save;
 
-public sealed class ResourcesHolder
+namespace Code.Scripts.Resources
 {
-    private readonly Dictionary<ResourceType, int> resourcesByTypes;
-
-    public ResourcesHolder()
+    public sealed class ResourcesHolder
     {
-        resourcesByTypes = new Dictionary<ResourceType, int>
+        private readonly Dictionary<ResourceType, int> resourcesByTypes;
+
+        private readonly IGameSaveManager gameSaveManager;
+        
+        public ResourcesHolder(IGameSaveManager gameSaveManager)
         {
-            { ResourceType.Money, 100 },
-            { ResourceType.Diamonds, 100 }
-        };
-    }
+            resourcesByTypes = gameSaveManager.SaveData.ResourcesByTypes;
+            
+            if (resourcesByTypes.Count == 0)
+            {
+                resourcesByTypes.Add(ResourceType.Money, 100);
+                resourcesByTypes.Add(ResourceType.Diamonds, 100);
+                gameSaveManager.Save();
+            }
+        }
     
-    public int GetResource(ResourceType type)
-    {
-        return resourcesByTypes[type];
-    }
-
-    public void ChangeResource(ResourceType type, int delta)
-    {
-        if (resourcesByTypes[type] + delta < 0)
+        public int GetResource(ResourceType type)
         {
-            // TODO : Handle this situation somehow
-            return;
+            return resourcesByTypes[type];
         }
 
-        resourcesByTypes[type] += delta;
+        public void ChangeResource(ResourceType type, int delta)
+        {
+            if (resourcesByTypes[type] + delta < 0)
+            {
+                // TODO : Handle this situation somehow
+                return;
+            }
+
+            resourcesByTypes[type] += delta;
+            gameSaveManager.Save();
+        }
     }
 }

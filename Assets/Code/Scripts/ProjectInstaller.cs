@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using Code.Scripts.Resources;
+using Code.Scripts.Save;
+using Zenject;
 
 namespace Code.Scripts
 {
@@ -6,6 +8,7 @@ namespace Code.Scripts
     {
         public override void InstallBindings()
         {
+            Container.BindInterfacesTo<JsonGameSaveManager>().AsSingle().NonLazy();
             Container.Bind<ResourcesHolder>().AsSingle().NonLazy();
         }
     }
