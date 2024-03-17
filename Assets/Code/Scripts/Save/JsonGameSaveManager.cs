@@ -1,4 +1,5 @@
 using System.IO;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -39,6 +40,12 @@ namespace Code.Scripts.Save
         {
             var json = JsonConvert.SerializeObject(SaveData);
             File.WriteAllText(SaveFilePath, json);
+        }
+        
+        public async Task SaveAsync()
+        {
+            var json = JsonConvert.SerializeObject(SaveData);
+            await File.WriteAllTextAsync(SaveFilePath, json);
         }
     }
 }
