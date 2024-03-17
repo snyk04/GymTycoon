@@ -12,5 +12,8 @@ namespace Code.Scripts.Zones
         [field: SerializeField] public int MaxUnits { get; private set; }
         [field: SerializeField] public int CycleLengthInMs { get; private set; }
         [field: SerializeField] public int ResourcePerCycle { get; private set; }
+        [field: SerializeField] public int ResourcePerNewUnit { get; private set; }
+        
+        [field: SerializeField] public GameObject UnitPrefab { get; private set; }
     }
 }

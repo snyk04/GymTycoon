@@ -1,14 +1,22 @@
 ﻿using System;
 using UnityEngine;
-using Zenject;
 
 namespace Code.Scripts.Zones
 {
+    public sealed class ZoneAmountOfUnitsIncreasedEvent
+    {
+        public Zone Zone { get; }
+        
+        public ZoneAmountOfUnitsIncreasedEvent(Zone zone)
+        {
+            Zone = zone;
+        }
+    }
     public sealed class Zone : MonoBehaviour
     {
         private EventBus eventBus;
-        private ZoneSettings zoneSettings;
-        private int amountOfUnits;
+        public ZoneSettings ZoneSettings { get; private set; }
+        public int AmountOfUnits { get; private set; }
         private DateTime lastEarningTime;
 
         private bool isInitialized;
@@ -20,10 +28,10 @@ namespace Code.Scripts.Zones
                 return;
             }
 
-            if ((DateTime.Now - lastEarningTime).TotalMilliseconds > zoneSettings.CycleLengthInMs)
+            if ((DateTime.Now - lastEarningTime).TotalMilliseconds > ZoneSettings.CycleLengthInMs)
             {
-                var amountOfResource = amountOfUnits * zoneSettings.ResourcePerCycle;
-                var @event = new ZoneProducedResourceEvent(zoneSettings.ResourceType, amountOfResource);
+                var amountOfResource = AmountOfUnits * ZoneSettings.ResourcePerCycle;
+                var @event = new ZoneProducedResourceEvent(ZoneSettings.ResourceType, amountOfResource);
                 eventBus.RaiseEvent(@event);
                 lastEarningTime = DateTime.Now;
             }
@@ -32,21 +40,21 @@ namespace Code.Scripts.Zones
         public void Initialize(EventBus eventBus, ZoneSettings zoneSettings, int amountOfUnits)
         {
             this.eventBus = eventBus;
-            this.zoneSettings = zoneSettings;
-            this.amountOfUnits = amountOfUnits;
+            this.ZoneSettings = zoneSettings;
+            this.AmountOfUnits = amountOfUnits;
 
             isInitialized = true;
         }
 
         public void IncreaseAmountOfUnits()
         {
-            if (amountOfUnits + 1 > zoneSettings.MaxUnits)
+            if (AmountOfUnits + 1 > ZoneSettings.MaxUnits)
             {
                 // TODO : Handle this situation
                 return;
             }
 
-            amountOfUnits++;
+            AmountOfUnits++;
         }
     }
 }
