@@ -35,7 +35,6 @@ namespace Code.Scripts.Resources
             }
 
             resourcesByTypes[type] += delta;
-            gameSaveManager.Save();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Code.Scripts
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<JsonGameSaveManager>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<AutoSaver>().AsSingle().NonLazy();
             Container.Bind<ResourcesHolder>().AsSingle().NonLazy();
         }
     }
