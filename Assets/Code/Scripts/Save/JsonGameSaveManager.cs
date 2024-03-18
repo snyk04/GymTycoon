@@ -9,18 +9,20 @@ namespace Code.Scripts.Save
     {
         private const string SaveFileName = "save.json";
 
-        private string SaveFilePath => Path.Combine(Application.persistentDataPath, SaveFileName);
+        private readonly string saveFilePath;
         
         public SaveData SaveData { get; private set; }
 
         public JsonGameSaveManager()
         {
+            saveFilePath = Path.Combine(Application.persistentDataPath, SaveFileName);
+            
             Initialize();
         }
         
         private void Initialize()
         {
-            if (File.Exists(SaveFilePath))
+            if (File.Exists(saveFilePath))
             {
                 ReadSaveFile();
                 return;
@@ -32,20 +34,20 @@ namespace Code.Scripts.Save
 
         private void ReadSaveFile()
         {
-            var json = File.ReadAllText(SaveFilePath);
+            var json = File.ReadAllText(saveFilePath);
             SaveData = JsonConvert.DeserializeObject<SaveData>(json);
         }
         
         public void Save()
         {
             var json = JsonConvert.SerializeObject(SaveData);
-            File.WriteAllText(SaveFilePath, json);
+            File.WriteAllText(saveFilePath, json);
         }
         
         public async Task SaveAsync()
         {
             var json = JsonConvert.SerializeObject(SaveData);
-            await File.WriteAllTextAsync(SaveFilePath, json);
+            await File.WriteAllTextAsync(saveFilePath, json);
         }
     }
 }
