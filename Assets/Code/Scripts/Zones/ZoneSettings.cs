@@ -7,6 +7,7 @@ namespace Code.Scripts.Zones
     [Serializable]
     public sealed class ZoneSettings
     {
+        [field: SerializeField] public string Title { get; private set; }
         [field: SerializeField] public ResourceType ResourceType { get; private set; }
         
         [field: SerializeField] public int MaxUnits { get; private set; }

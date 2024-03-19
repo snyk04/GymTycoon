@@ -1,4 +1,5 @@
-﻿using Code.Scripts.Resources;
+﻿using System;
+using Code.Scripts.Resources;
 using Code.Scripts.Utils;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Code.Scripts.Zones
     public sealed class ZoneInfo : MonoBehaviour
     {
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text amountOfUnitsText;
         [SerializeField] private Button increaseAmountOfUnitsButton;
         [SerializeField] private TMP_Text increaseAmountOfUnitsButtonText;
@@ -18,6 +20,7 @@ namespace Code.Scripts.Zones
         private ResourcesHolder resourcesHolder;
 
         private Zone currentZone;
+        private ZoneSettings CurrentZoneSettings => currentZone.ZoneSettings;
 
         [Inject]
         private void Construct(EventBus eventBus, ResourcesHolder resourcesHolder)
@@ -40,7 +43,7 @@ namespace Code.Scripts.Zones
                 return;
             }
             
-            resourcesHolder.ChangeResource(currentZone.ZoneSettings.ResourceType, currentZone.ZoneSettings.ResourcePerNewUnit);
+            resourcesHolder.ChangeResource(CurrentZoneSettings.ResourceType, -CurrentZoneSettings.ResourcePerNewUnit);
             currentZone.IncreaseAmountOfUnits();
             amountOfUnitsText.text = GetAmountOfUnitsText(currentZone);
         }
@@ -51,13 +54,14 @@ namespace Code.Scripts.Zones
 
             currentZone = @event.ZoneVisual.Zone;
 
+            titleText.text = CurrentZoneSettings.Title;
             amountOfUnitsText.text = GetAmountOfUnitsText(@event.ZoneVisual.Zone);
-            increaseAmountOfUnitsButtonText.text = @event.ZoneVisual.Zone.ZoneSettings.ResourcePerNewUnit.ToString();
+            increaseAmountOfUnitsButtonText.text = CurrentZoneSettings.ResourcePerNewUnit.ToString();
         }
 
         private string GetAmountOfUnitsText(Zone zone)
         {
-            return $"{zone.AmountOfUnits}/{zone.ZoneSettings.MaxUnits}";
+            return $"Units: {zone.AmountOfUnits}/{zone.ZoneSettings.MaxUnits}";
         }
 
         private void Update()
@@ -67,9 +71,10 @@ namespace Code.Scripts.Zones
                 return;
             }
 
-            var amountOfResource = resourcesHolder.GetResource(currentZone.ZoneSettings.ResourceType);
-            increaseAmountOfUnitsButton.interactable = 
-                amountOfResource > currentZone.ZoneSettings.ResourcePerNewUnit;
+            var amountOfResource = resourcesHolder.GetResource(CurrentZoneSettings.ResourceType);
+            var enoughResource = amountOfResource > CurrentZoneSettings.ResourcePerNewUnit;
+            var newUnitsCanBeBought = currentZone.AmountOfUnits < CurrentZoneSettings.MaxUnits;
+            increaseAmountOfUnitsButton.interactable = enoughResource && newUnitsCanBeBought;
         }
 
         private void OnDestroy()
