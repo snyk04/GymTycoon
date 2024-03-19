@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using Code.Scripts.Audio;
 using Code.Scripts.Utils;
 using Code.Scripts.Zones.Events;
@@ -15,6 +16,8 @@ namespace Code.Scripts
 
         private EventBus eventBus;
 
+        private readonly CancellationTokenSource cts = new();
+
         [Inject]
         private void Construct(EventBus eventBus)
         {
@@ -26,6 +29,7 @@ namespace Code.Scripts
         private void OnDestroy()
         {
             eventBus.Unsubscribe<ZoneProducedResourceEvent>(HandleZoneProducedResourceEvent);
+            cts.Cancel();
         }
 
         private void HandleZoneProducedResourceEvent(ZoneProducedResourceEvent @event)
@@ -38,16 +42,27 @@ namespace Code.Scripts
         {
             var goalColor = coin.color;
             goalColor.a = 0;
-            var changeColorTask = Lerper.To(coin.color, value => coin.color = value, goalColor, coinLifetimeInSeconds);
+            var changeColorTask = Lerper.To(
+                coin.color,
+                value => coin.color = value, 
+                goalColor, 
+                coinLifetimeInSeconds,
+                cts.Token
+                );
             var changePositionTask = Lerper.To(
                 coin.transform.position, 
                 value => coin.transform.position = value, 
                 coin.transform.position + Vector3.up * coinGoalOffset,
-                coinLifetimeInSeconds);
+                coinLifetimeInSeconds,
+                cts.Token
+                );
 
             await Task.WhenAll(changeColorTask, changePositionTask);
-            
-            Destroy(coin.gameObject);
+
+            if (!cts.IsCancellationRequested)
+            {
+                Destroy(coin.gameObject);
+            }
         }
     }
 }
