@@ -66,7 +66,7 @@ namespace Code.Scripts.Zones
         private void Spawn(ZoneSettings zoneSettings, int amountOfUnits, int zoneIndex, Vector3 position)
         {
             var zone = Instantiate(zonePrefab, zoneParent);
-            zone.Initialize(zoneIndex, zoneSettings, amountOfUnits, eventBus);
+            zone.Initialize(zoneIndex, zoneSettings, amountOfUnits, eventBus, position);
 
             var zoneVisual = Instantiate(zoneVisualPrefab, position, Quaternion.identity, zoneVisualParent);
             zoneVisual.Initialize(eventBus, zoneSettings, zone);

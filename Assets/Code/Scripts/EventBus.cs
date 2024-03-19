@@ -36,9 +36,10 @@ namespace Code.Scripts
 
             foreach (var listenerObject in listenersByEventTypes[typeof(T)])
             {
+                // TODO : Maybe use regular casting?
                 if (listenerObject is Action<T> listener)
                 {
-                    listener?.Invoke(@event);
+                    listener(@event);
                 }
             }
         }

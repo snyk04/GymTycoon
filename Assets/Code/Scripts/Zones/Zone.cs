@@ -12,6 +12,7 @@ namespace Code.Scripts.Zones
         public int Id { get; private set; }
         public ZoneSettings ZoneSettings { get; private set; }
         public int AmountOfUnits { get; private set; }
+        private Vector3 zonePosition;
         
         private EventBus eventBus;
         private DateTime lastEarningTime;
@@ -28,18 +29,20 @@ namespace Code.Scripts.Zones
             if ((DateTime.Now - lastEarningTime).TotalMilliseconds > ZoneSettings.CycleLengthInMs)
             {
                 var amountOfResource = AmountOfUnits * ZoneSettings.ResourcePerCycle;
-                var @event = new ZoneProducedResourceEvent(ZoneSettings.ResourceType, amountOfResource);
+                var @event = new ZoneProducedResourceEvent(ZoneSettings.ResourceType, amountOfResource, zonePosition);
                 eventBus.RaiseEvent(@event);
                 lastEarningTime = DateTime.Now;
             }
         }
 
-        public void Initialize(int id, ZoneSettings zoneSettings, int amountOfUnits, EventBus eventBus)
+        public void Initialize(int id, ZoneSettings zoneSettings, int amountOfUnits, EventBus eventBus, 
+            Vector3 zonePosition)
         {
             Id = id;
             ZoneSettings = zoneSettings;
             AmountOfUnits = amountOfUnits;
             this.eventBus = eventBus;
+            this.zonePosition = zonePosition;
 
             isInitialized = true;
         }
