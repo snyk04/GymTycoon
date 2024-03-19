@@ -14,7 +14,7 @@ namespace Code.Scripts.Camera
         {
             if (Input.mouseScrollDelta.magnitude > 0)
             {
-                camera.orthographicSize += Input.mouseScrollDelta.y * zoomSpeed * Time.deltaTime;
+                camera.orthographicSize -= Input.mouseScrollDelta.y * zoomSpeed * Time.deltaTime;
                 camera.orthographicSize = Math.Clamp(camera.orthographicSize, minZoom, maxZoom);
             }
         }

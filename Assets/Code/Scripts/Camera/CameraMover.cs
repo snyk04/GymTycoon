@@ -33,8 +33,8 @@ namespace Code.Scripts.Camera
             var delta = Input.mousePosition - lastMousePosition;
             var cameraPosition = camera.transform.position;
             var newPosition = cameraPosition +
-                              camera.transform.forward * (delta.y * movementSpeed * camera.orthographicSize * Time.deltaTime) +
-                              camera.transform.right * (delta.x * movementSpeed * camera.orthographicSize * Time.deltaTime);
+                              -camera.transform.forward * (delta.y * movementSpeed * camera.orthographicSize * Time.deltaTime) +
+                              -camera.transform.right * (delta.x * movementSpeed * camera.orthographicSize * Time.deltaTime);
             newPosition.y = cameraPosition.y;
             camera.transform.position = newPosition;
         }
