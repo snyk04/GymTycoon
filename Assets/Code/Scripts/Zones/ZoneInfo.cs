@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Scripts.Resources;
+﻿using Code.Scripts.Resources;
 using Code.Scripts.Utils;
 using Code.Scripts.Zones.Events;
 using Code.Scripts.Zones.Models;
@@ -65,7 +64,7 @@ namespace Code.Scripts.Zones
 
         private string GetAmountOfUnitsText(Zone zone)
         {
-            return $"Units: {zone.AmountOfUnits}/{zone.ZoneSettings.MaxUnits}";
+            return $"Units: {zone.AmountOfUnits}/{Zone.MaxUnits}";
         }
 
         private void Update()
@@ -77,7 +76,7 @@ namespace Code.Scripts.Zones
 
             var amountOfResource = resourcesHolder.GetResource(CurrentZoneSettings.ResourceType);
             var enoughResource = amountOfResource > CurrentZoneSettings.ResourcePerNewUnit;
-            var newUnitsCanBeBought = currentZone.AmountOfUnits < CurrentZoneSettings.MaxUnits;
+            var newUnitsCanBeBought = currentZone.AmountOfUnits < Zone.MaxUnits;
             increaseAmountOfUnitsButton.interactable = enoughResource && newUnitsCanBeBought;
         }
 

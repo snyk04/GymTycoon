@@ -7,6 +7,8 @@ namespace Code.Scripts.Zones
 {
     public sealed class Zone : MonoBehaviour
     {
+        public const int MaxUnits = 10;
+        
         public int Id { get; private set; }
         public ZoneSettings ZoneSettings { get; private set; }
         public int AmountOfUnits { get; private set; }
@@ -44,7 +46,7 @@ namespace Code.Scripts.Zones
 
         public void IncreaseAmountOfUnits()
         {
-            if (AmountOfUnits + 1 > ZoneSettings.MaxUnits)
+            if (AmountOfUnits + 1 > MaxUnits)
             {
                 // TODO : Handle this situation
                 return;

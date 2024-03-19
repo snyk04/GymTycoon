@@ -48,6 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitParent: {fileID: 1451838656191353359}
+  firstUnitPosition: {x: -3.3333333, y: 0, z: 1.6666666}
+  amountOfRows: 2
+  amountOfColumns: 5
+  rowOffset: 3.333333
+  columnOffset: 1.666667
 --- !u!33 &2336745801922109771
 MeshFilter:
   m_ObjectHideFlags: 0

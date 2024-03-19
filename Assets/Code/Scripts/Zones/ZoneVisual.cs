@@ -7,7 +7,12 @@ namespace Code.Scripts.Zones
     public sealed class ZoneVisual : MonoBehaviour
     {
         [SerializeField] private Transform unitParent;
-
+        [SerializeField] private Vector3 firstUnitPosition;
+        [SerializeField] private int amountOfRows;
+        [SerializeField] private int amountOfColumns;
+        [SerializeField] private float rowOffset;
+        [SerializeField] private float columnOffset;
+        
         private EventBus eventBus;
         private ZoneSettings zoneSettings;
         public Zone Zone { get; private set; }
@@ -40,7 +45,9 @@ namespace Code.Scripts.Zones
 
             for (var i = 0; i < amountOfUnits; i++)
             {
-                Instantiate(unitPrefab, unitParent);
+                var unit = Instantiate(unitPrefab, unitParent);
+                var offset = (i % amountOfColumns) * columnOffset * Vector3.right + (i / amountOfColumns) * rowOffset * Vector3.back;
+                unit.transform.localPosition = firstUnitPosition + offset;
             }
         }
 
