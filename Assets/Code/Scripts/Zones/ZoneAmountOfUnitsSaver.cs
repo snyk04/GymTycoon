@@ -17,14 +17,14 @@ namespace Code.Scripts.Zones
             eventBus.Subscribe<ZoneAmountOfUnitsIncreasedEvent>(HandleZoneAmountOfUnitsIncreasedEvent);
         }
 
-        private void HandleZoneAmountOfUnitsIncreasedEvent(ZoneAmountOfUnitsIncreasedEvent @event)
-        {
-            gameSaveManager.SaveData.ZoneSaveDataList[@event.Zone.Id].AmountOfUnits = @event.Zone.AmountOfUnits;
-        }
-
         public void Dispose()
         {
             eventBus.Unsubscribe<ZoneAmountOfUnitsIncreasedEvent>(HandleZoneAmountOfUnitsIncreasedEvent);
+        }
+        
+        private void HandleZoneAmountOfUnitsIncreasedEvent(ZoneAmountOfUnitsIncreasedEvent @event)
+        {
+            gameSaveManager.SaveData.ZoneSaveDataList[@event.Zone.Id].AmountOfUnits = @event.Zone.AmountOfUnits;
         }
     }
 }

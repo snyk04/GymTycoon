@@ -34,6 +34,11 @@ namespace Code.Scripts.Zones
             
             eventBus.Subscribe<ZoneBoughtEvent>(HandleZoneBoughtEvent);
         }
+        
+        private void OnDestroy()
+        {
+            eventBus.Unsubscribe<ZoneBoughtEvent>(HandleZoneBoughtEvent);
+        }
 
         private void HandleZoneBoughtEvent(ZoneBoughtEvent @event)
         {
@@ -42,8 +47,14 @@ namespace Code.Scripts.Zones
             gameSaveManager.Save();
             
             var zoneSettings = zoneSettingsHolder.ZoneSettingsByZoneTypes[@event.ZoneType];
-            var zoneIndex = gameSaveManager.SaveData.ZoneSaveDataList.Count - 1;
-            Spawn(zoneSettings, AmountOfUnitsByDefault, zoneIndex, @event.Position);
+            Spawn(zoneSettings, AmountOfUnitsByDefault, GetLastZoneIndex(), @event.Position);
+        }
+
+        
+        
+        private int GetLastZoneIndex()
+        {
+            return gameSaveManager.SaveData.ZoneSaveDataList.Count - 1;
         }
 
         private void Start()
@@ -71,11 +82,6 @@ namespace Code.Scripts.Zones
             var zoneVisual = Instantiate(zoneVisualPrefab, position, Quaternion.identity, zoneVisualParent);
             zoneVisual.Initialize(eventBus, zoneSettings, zone);
             eventBus.RaiseEvent(new ZoneVisualSpawnedEvent(position));
-        }
-
-        private void OnDestroy()
-        {
-            eventBus.Unsubscribe<ZoneBoughtEvent>(HandleZoneBoughtEvent);
         }
     }
 }

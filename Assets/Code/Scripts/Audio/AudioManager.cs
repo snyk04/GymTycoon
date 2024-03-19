@@ -31,15 +31,17 @@ namespace Code.Scripts.Audio
 
         private AudioSource GetOrCreateAudioSource()
         {
-            if (!freeAudioSources.TryDequeue(out var audioSource))
+            if (freeAudioSources.TryDequeue(out var audioSource))
             {
-                var gameObject = new GameObject("Pooled AudioSource");
-
-                gameObject.transform.SetParent(UnityEngine.Camera.main!.transform);
-                gameObject.transform.localPosition = Vector3.zero;
-
-                audioSource = gameObject.AddComponent<AudioSource>();
+                return audioSource;
             }
+            
+            var gameObject = new GameObject("Pooled AudioSource");
+
+            gameObject.transform.SetParent(UnityEngine.Camera.main!.transform);
+            gameObject.transform.localPosition = Vector3.zero;
+
+            audioSource = gameObject.AddComponent<AudioSource>();
 
             return audioSource;
         }

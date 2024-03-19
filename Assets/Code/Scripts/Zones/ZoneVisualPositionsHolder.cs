@@ -19,14 +19,14 @@ namespace Code.Scripts.Zones
             eventBus.Subscribe<ZoneVisualSpawnedEvent>(HandleZoneVisualSpawnedEvent);
         }
 
-        private void HandleZoneVisualSpawnedEvent(ZoneVisualSpawnedEvent @event)
-        {
-            zoneVisualPositions.Add(@event.Position);
-        }
-
         public void Dispose()
         {
             eventBus.Unsubscribe<ZoneVisualSpawnedEvent>(HandleZoneVisualSpawnedEvent);
+        }
+        
+        private void HandleZoneVisualSpawnedEvent(ZoneVisualSpawnedEvent @event)
+        {
+            zoneVisualPositions.Add(@event.Position);
         }
     }
 }

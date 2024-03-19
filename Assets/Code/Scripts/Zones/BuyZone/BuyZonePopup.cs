@@ -33,30 +33,26 @@ namespace Code.Scripts.Zones.BuyZone
             
             eventBus.Subscribe<BuyZoneClickedEvent>(HandleBuyZoneClickedEvent);
         }
-
-        private void Update()
+        
+        private void OnDestroy()
         {
-            var currentZoneType = (ZoneType)zoneTypeDropdown.value;
-            var zoneSettings = zoneSettingsHolder.ZoneSettingsByZoneTypes[currentZoneType];
-            var resourcePerNewZone = zoneSettings.ResourcePerNewZone;
-            buyZoneButton.interactable = resourcesHolder.GetResource(zoneSettings.ResourceType) >= resourcePerNewZone;
+            eventBus.Unsubscribe<BuyZoneClickedEvent>(HandleBuyZoneClickedEvent);
+            zoneTypeDropdown.onValueChanged.RemoveListener(ZoneTypeDropdownOnValueChanged);
+            buyZoneButton.onClick.RemoveListener(BuyZoneButtonOnClick);
         }
-
-        private void Start()
+        
+        private void HandleBuyZoneClickedEvent(BuyZoneClickedEvent @event)
         {
-            zoneTypeDropdown.onValueChanged.AddListener(ZoneTypeDropdownOnValueChanged);
-            buyZoneButton.onClick.AddListener(BuyZoneButtonOnClick);
-            
-            var optionData = new List<TMP_Dropdown.OptionData>();
-            foreach (var (_, zoneSettings) in zoneSettingsHolder.ZoneSettingsByZoneTypes)
-            {
-                optionData.Add(new TMP_Dropdown.OptionData(zoneSettings.Title));
-            }
-            zoneTypeDropdown.options = optionData;
-            zoneTypeDropdown.value = 0;
-            ZoneTypeDropdownOnValueChanged(0);
+            currentPosition = @event.Position;
+            canvasGroup.SetActive(true);
         }
-
+        
+        private void ZoneTypeDropdownOnValueChanged(int zoneType)
+        {
+            var resourcePerNewZone = zoneSettingsHolder.ZoneSettingsByZoneTypes[(ZoneType)zoneType].ResourcePerNewZone;
+            buyZoneButtonText.text = resourcePerNewZone.ToString();
+        }
+        
         private void BuyZoneButtonOnClick()
         {
             var zoneType = (ZoneType)zoneTypeDropdown.value;
@@ -66,22 +62,33 @@ namespace Code.Scripts.Zones.BuyZone
             canvasGroup.SetActive(false);
         }
 
-        private void OnDestroy()
+        private void Start()
         {
-            eventBus.Unsubscribe<BuyZoneClickedEvent>(HandleBuyZoneClickedEvent);
-            zoneTypeDropdown.onValueChanged.RemoveListener(ZoneTypeDropdownOnValueChanged);
-        }
-        
-        private void ZoneTypeDropdownOnValueChanged(int zoneType)
-        {
-            var resourcePerNewZone = zoneSettingsHolder.ZoneSettingsByZoneTypes[(ZoneType)zoneType].ResourcePerNewZone;
-            buyZoneButtonText.text = resourcePerNewZone.ToString();
+            zoneTypeDropdown.onValueChanged.AddListener(ZoneTypeDropdownOnValueChanged);
+            buyZoneButton.onClick.AddListener(BuyZoneButtonOnClick);
+            
+            zoneTypeDropdown.options = GetDropdownOptionDataList();
+            zoneTypeDropdown.value = 0;
+            ZoneTypeDropdownOnValueChanged(0);
         }
 
-        private void HandleBuyZoneClickedEvent(BuyZoneClickedEvent @event)
+        private List<TMP_Dropdown.OptionData> GetDropdownOptionDataList()
         {
-            currentPosition = @event.Position;
-            canvasGroup.SetActive(true);
+            var optionData = new List<TMP_Dropdown.OptionData>();
+            foreach (var (_, zoneSettings) in zoneSettingsHolder.ZoneSettingsByZoneTypes)
+            {
+                optionData.Add(new TMP_Dropdown.OptionData(zoneSettings.Title));
+            }
+
+            return optionData;
+        }
+
+        private void Update()
+        {
+            var currentZoneType = (ZoneType)zoneTypeDropdown.value;
+            var zoneSettings = zoneSettingsHolder.ZoneSettingsByZoneTypes[currentZoneType];
+            var resourcePerNewZone = zoneSettings.ResourcePerNewZone;
+            buyZoneButton.interactable = resourcesHolder.GetResource(zoneSettings.ResourceType) >= resourcePerNewZone;
         }
     }
 }

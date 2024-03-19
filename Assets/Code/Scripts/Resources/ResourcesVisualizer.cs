@@ -23,7 +23,7 @@ namespace Code.Scripts.Resources
             diamondsText.text = FormatNumber(resourcesHolder.GetResource(ResourceType.Diamonds));
         }
 
-        private string FormatNumber(int num)
+        private string FormatNumber(long num)
         {
             var strNum = num.ToString().Replace("[^0-9.]", "");
 

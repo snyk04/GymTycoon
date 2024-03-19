@@ -21,7 +21,7 @@ namespace Code.Scripts.Animations
         private void Construct(EventBus eventBus)
         {
             this.eventBus = eventBus;
-            
+
             eventBus.Subscribe<ZoneProducedResourceEvent>(HandleZoneProducedResourceEvent);
         }
 
@@ -39,29 +39,28 @@ namespace Code.Scripts.Animations
 
         private async Task HideAndMoveCoin(SpriteRenderer coin)
         {
-            var goalColor = coin.color;
-            goalColor.a = 0;
-            var changeColorTask = Lerper.To(
-                coin.color,
-                value => coin.color = value, 
-                goalColor, 
-                coinLifetimeInSeconds,
-                cts.Token
-                );
-            var changePositionTask = Lerper.To(
-                coin.transform.position, 
-                value => coin.transform.position = value, 
-                coin.transform.position + Vector3.up * coinGoalOffset,
-                coinLifetimeInSeconds,
-                cts.Token
-                );
+            var fade = Fade(coin);
+            var moveUpwards = MoveUpwards(coin.transform);
 
-            await Task.WhenAll(changeColorTask, changePositionTask);
+            await Task.WhenAll(fade, moveUpwards);
 
             if (!cts.IsCancellationRequested)
             {
                 Destroy(coin.gameObject);
             }
+        }
+
+        private Task Fade(SpriteRenderer coin)
+        {
+            var goalColor = coin.color;
+            goalColor.a = 0;
+            return Lerper.To(coin.color, value => coin.color = value, goalColor, coinLifetimeInSeconds, cts.Token);
+        }
+
+        private Task MoveUpwards(Transform transform)
+        {
+            return Lerper.To(transform.position, value => transform.position = value,
+                transform.position + Vector3.up * coinGoalOffset, coinLifetimeInSeconds, cts.Token);
         }
     }
 }

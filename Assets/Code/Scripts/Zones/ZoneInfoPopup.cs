@@ -36,6 +36,12 @@ namespace Code.Scripts.Zones
         {
             increaseAmountOfUnitsButton.onClick.AddListener(IncreaseAmountOfUnits);
         }
+        
+        private void OnDestroy()
+        {
+            eventBus.Unsubscribe<ZoneVisualClickedEvent>(HandleZoneVisualClickedEvent);
+            increaseAmountOfUnitsButton.onClick.RemoveListener(IncreaseAmountOfUnits);
+        }
 
         private void IncreaseAmountOfUnits()
         {
@@ -73,17 +79,19 @@ namespace Code.Scripts.Zones
             {
                 return;
             }
-
-            var amountOfResource = resourcesHolder.GetResource(CurrentZoneSettings.ResourceType);
-            var enoughResource = amountOfResource > CurrentZoneSettings.ResourcePerNewUnit;
-            var newUnitsCanBeBought = currentZone.AmountOfUnits < Zone.MaxUnits;
-            increaseAmountOfUnitsButton.interactable = enoughResource && newUnitsCanBeBought;
+            
+            increaseAmountOfUnitsButton.interactable = EnoughResource() && NewUnitsCanBeBought();
         }
 
-        private void OnDestroy()
+        private bool EnoughResource()
         {
-            eventBus.Unsubscribe<ZoneVisualClickedEvent>(HandleZoneVisualClickedEvent);
-            increaseAmountOfUnitsButton.onClick.RemoveListener(IncreaseAmountOfUnits);
+            var amountOfResource = resourcesHolder.GetResource(CurrentZoneSettings.ResourceType);
+            return amountOfResource > CurrentZoneSettings.ResourcePerNewUnit;
+        }
+
+        private bool NewUnitsCanBeBought()
+        {
+            return currentZone.AmountOfUnits < Zone.MaxUnits;
         }
     }
 }

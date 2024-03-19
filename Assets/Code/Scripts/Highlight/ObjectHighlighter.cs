@@ -1,23 +1,24 @@
 ﻿using Code.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Code.Scripts.Highlight
 {
     public sealed class ObjectHighlighter : MonoBehaviour
     {
         private HighlightableObject highlightedObject;
-        
+
         private void Update()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                UnhighlightCurrentObject();
+                return;
+            }
+            
             if (!PhysicsExtensions.RaycastUnderMouse(out var hitInfo))
             {
-                if (highlightedObject == null)
-                {
-                    return;
-                }
-                
-                highlightedObject.Unhighlight();
-                highlightedObject = null;
+                UnhighlightCurrentObject();
                 return;
             }
 
@@ -30,9 +31,20 @@ namespace Code.Scripts.Highlight
             {
                 return;
             }
-            
+
             highlightableObject.Highlight();
             highlightedObject = highlightableObject;
+        }
+
+        private void UnhighlightCurrentObject()
+        {
+            if (highlightedObject == null)
+            {
+                return;
+            }
+
+            highlightedObject.Unhighlight();
+            highlightedObject = null;
         }
     }
 }

@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using Code.Scripts.Save;
 using Code.Scripts.Save.Interfaces;
 
 namespace Code.Scripts.Resources
 {
     public sealed class ResourcesHolder
     {
-        private readonly Dictionary<ResourceType, int> resourcesByTypes;
+        private readonly Dictionary<ResourceType, long> resourcesByTypes;
 
         private readonly IGameSaveManager gameSaveManager;
         
@@ -22,16 +21,16 @@ namespace Code.Scripts.Resources
             }
         }
     
-        public int GetResource(ResourceType type)
+        public long GetResource(ResourceType type)
         {
             return resourcesByTypes[type];
         }
 
-        public void ChangeResource(ResourceType type, int delta)
+        public void ChangeResource(ResourceType type, long delta)
         {
             if (resourcesByTypes[type] + delta < 0)
             {
-                // TODO : Handle this situation somehow
+                // TODO : Handle this situation
                 return;
             }
 

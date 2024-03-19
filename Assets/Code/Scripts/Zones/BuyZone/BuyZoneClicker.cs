@@ -1,6 +1,7 @@
 using Code.Scripts.Utils;
 using Code.Scripts.Zones.Events;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace Code.Scripts.Zones.BuyZone
@@ -17,6 +18,11 @@ namespace Code.Scripts.Zones.BuyZone
         
         private void Update()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+            
             if (!Input.GetMouseButtonDown(0))
             {
                 return;

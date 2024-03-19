@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Code.Scripts.Save.Interfaces;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Scripts.Save
@@ -23,10 +24,17 @@ namespace Code.Scripts.Save
         {
             Task.Run(async () =>
             {
-                while (!cancellationTokenSource.IsCancellationRequested)
+                try
                 {
-                    await Task.Delay(autoSaveDelay);
-                    await gameSaveManager.SaveAsync();
+                    while (!cancellationTokenSource.IsCancellationRequested)
+                    {
+                        await gameSaveManager.SaveAsync();
+                        await Task.Delay(autoSaveDelay, cancellationTokenSource.Token);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
                 }
             });
         }

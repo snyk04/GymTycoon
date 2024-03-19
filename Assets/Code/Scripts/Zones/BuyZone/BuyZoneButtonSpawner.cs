@@ -26,6 +26,14 @@ namespace Code.Scripts.Zones.BuyZone
         private void HandleZoneVisualSpawnedEvent(ZoneVisualSpawnedEvent @event)
         {
             ClearButtons();
+            foreach (var position in GetNewBuyZoneButtonsPositions())
+            {
+                Instantiate(buyZoneButtonPrefab, position, Quaternion.identity, transform);
+            }
+        }
+
+        private List<Vector3> GetNewBuyZoneButtonsPositions()
+        {
             var newBuyZoneButtonsPositions = new List<Vector3>();
             foreach (var zoneVisualPosition in zoneVisualPositionsHolder.ZoneVisualPositions)
             {
@@ -45,10 +53,7 @@ namespace Code.Scripts.Zones.BuyZone
                 }
             }
 
-            foreach (var position in newBuyZoneButtonsPositions)
-            {
-                Instantiate(buyZoneButtonPrefab, position, Quaternion.identity, transform);
-            }
+            return newBuyZoneButtonsPositions;
         }
 
         private void ClearButtons()

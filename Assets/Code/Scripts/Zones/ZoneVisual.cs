@@ -8,7 +8,6 @@ namespace Code.Scripts.Zones
     {
         [SerializeField] private Transform unitParent;
         [SerializeField] private Vector3 firstUnitPosition;
-        [SerializeField] private int amountOfRows;
         [SerializeField] private int amountOfColumns;
         [SerializeField] private float rowOffset;
         [SerializeField] private float columnOffset;
@@ -21,7 +20,7 @@ namespace Code.Scripts.Zones
         {
             this.eventBus = eventBus;
             this.zoneSettings = zoneSettings;
-            this.Zone = zone;
+            Zone = zone;
 
             eventBus.Subscribe<ZoneAmountOfUnitsIncreasedEvent>(HandleZoneAmountOfUnitsIncreasedEvent);
             

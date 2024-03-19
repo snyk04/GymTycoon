@@ -12,11 +12,13 @@ namespace Code.Scripts.Camera
         
         private void Update()
         {
-            if (Input.mouseScrollDelta.magnitude > 0)
+            if (!(Input.mouseScrollDelta.magnitude > 0))
             {
-                camera.orthographicSize -= Input.mouseScrollDelta.y * zoomSpeed * Time.deltaTime;
-                camera.orthographicSize = Math.Clamp(camera.orthographicSize, minZoom, maxZoom);
+                return;
             }
+            
+            camera.orthographicSize -= Input.mouseScrollDelta.y * zoomSpeed * Time.deltaTime;
+            camera.orthographicSize = Math.Clamp(camera.orthographicSize, minZoom, maxZoom);
         }
     }
 }

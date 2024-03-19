@@ -5,8 +5,8 @@ namespace Code.Scripts.Zones.Events
 {
     public sealed class ZoneBoughtEvent
     {
-        public ZoneType ZoneType { get; set; }
-        public Vector3 Position { get; set; }
+        public ZoneType ZoneType { get; }
+        public Vector3 Position { get; }
 
         public ZoneBoughtEvent(ZoneType zoneType, Vector3 position)
         {

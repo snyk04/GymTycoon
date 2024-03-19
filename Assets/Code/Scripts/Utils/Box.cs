@@ -1,5 +1,3 @@
-using Code.Scripts.Audio;
-
 namespace Code.Scripts.Utils
 {
     public sealed class Box<T> : IReadOnlyBox<T>
