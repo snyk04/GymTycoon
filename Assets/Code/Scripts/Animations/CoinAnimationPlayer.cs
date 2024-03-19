@@ -1,12 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Code.Scripts.Audio;
 using Code.Scripts.Utils;
 using Code.Scripts.Zones.Events;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Scripts
+namespace Code.Scripts.Animations
 {
     public sealed class CoinAnimationPlayer : MonoBehaviour
     {

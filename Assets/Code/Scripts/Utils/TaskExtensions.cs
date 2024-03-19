@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Code.Scripts.Audio
+namespace Code.Scripts.Utils
 {
     public static class TaskExtensions
     {

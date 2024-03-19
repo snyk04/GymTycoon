@@ -1,4 +1,4 @@
-﻿namespace Code.Scripts.Audio
+﻿namespace Code.Scripts.Utils
 {
     public interface IReadOnlyBox<out T>
     {
