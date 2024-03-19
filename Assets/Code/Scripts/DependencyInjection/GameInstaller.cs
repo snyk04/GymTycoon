@@ -1,12 +1,13 @@
-﻿using Code.Scripts.Resources;
+﻿using Code.Scripts.Audio;
+using Code.Scripts.Resources;
 using Code.Scripts.Save;
 using Code.Scripts.Zones;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Scripts
+namespace Code.Scripts.DependencyInjection
 {
-    public class ProjectInstaller : MonoInstaller
+    public class GameInstaller : MonoInstaller
     {
         [SerializeField] private ZoneSettingsHolder zoneSettingsHolder;
         
@@ -19,6 +20,7 @@ namespace Code.Scripts
             Container.BindInterfacesTo<ResourcesUpdater>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ZoneAmountOfUnitsSaver>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ZoneVisualPositionsHolder>().AsSingle().NonLazy();
+            Container.Bind<AudioManager>().AsSingle().NonLazy();
 
             Container.Bind<ZoneSettingsHolder>().FromInstance(zoneSettingsHolder).AsSingle().NonLazy();
         }
