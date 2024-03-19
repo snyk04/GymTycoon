@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using Code.Scripts.Save.Interfaces;
 using Code.Scripts.Save.Models;
+using Code.Scripts.Zones.Events;
 using Code.Scripts.Zones.Models;
 using UnityEngine;
 using Zenject;
@@ -9,8 +10,9 @@ namespace Code.Scripts.Zones
 {
     public sealed class ZoneSpawner : MonoBehaviour
     {
+        private const int AmountOfUnitsByDefault = 1;
+        
         [Header("Settings")]
-        [SerializeField] private ZoneSettingsByZoneType[] zoneSettingsByZoneTypeArray;
         [SerializeField] private Vector3 firstZoneVisualPosition;
         [SerializeField] private Vector3 offsetBetweenZones;
 
@@ -19,26 +21,26 @@ namespace Code.Scripts.Zones
         [SerializeField] private Transform zoneParent;
         [SerializeField] private ZoneVisual zoneVisualPrefab;
         [SerializeField] private Transform zoneVisualParent;
-
-        private Dictionary<ZoneType, ZoneSettings> zoneSettingsByZoneTypes;
         
         private IGameSaveManager gameSaveManager;
         private EventBus eventBus;
+        private ZoneSettingsHolder zoneSettingsHolder;
         
         [Inject]
-        private void Construct(IGameSaveManager gameSaveManager, EventBus eventBus)
+        private void Construct(IGameSaveManager gameSaveManager, EventBus eventBus, ZoneSettingsHolder zoneSettingsHolder)
         {
             this.gameSaveManager = gameSaveManager;
             this.eventBus = eventBus;
+            this.zoneSettingsHolder = zoneSettingsHolder;
+            
+            eventBus.Subscribe<ZoneBoughtEvent>(HandleZoneBoughtEvent);
         }
 
-        private void Awake()
+        private void HandleZoneBoughtEvent(ZoneBoughtEvent obj)
         {
-            zoneSettingsByZoneTypes = new Dictionary<ZoneType, ZoneSettings>();
-            foreach (var zoneSettingsByZoneType in zoneSettingsByZoneTypeArray)
-            {
-                zoneSettingsByZoneTypes.Add(zoneSettingsByZoneType.ZoneType, zoneSettingsByZoneType.ZoneSettings);
-            }
+            var newZoneSaveData = new ZoneSaveData(obj.ZoneType, AmountOfUnitsByDefault);
+            gameSaveManager.SaveData.ZoneSaveDataList.Add(newZoneSaveData);
+            Spawn(zoneSettingsHolder.ZoneSettingsByZoneTypes[obj.ZoneType], AmountOfUnitsByDefault,  gameSaveManager.SaveData.ZoneSaveDataList.Count - 1);
         }
 
         private void Start()
@@ -51,7 +53,7 @@ namespace Code.Scripts.Zones
 
             for (var i = 0; i < zoneSaveDataList.Count; i++)
             {
-                Spawn(zoneSettingsByZoneTypes[zoneSaveDataList[i].ZoneType], zoneSaveDataList[i].AmountOfUnits, i);
+                Spawn(zoneSettingsHolder.ZoneSettingsByZoneTypes[zoneSaveDataList[i].ZoneType], zoneSaveDataList[i].AmountOfUnits, i);
             }
         }
 
@@ -63,6 +65,12 @@ namespace Code.Scripts.Zones
             var position = firstZoneVisualPosition + zoneIndex * offsetBetweenZones;
             var zoneVisual = Instantiate(zoneVisualPrefab, position, Quaternion.identity, zoneVisualParent);
             zoneVisual.Initialize(eventBus, zoneSettings, zone);
+            eventBus.RaiseEvent(new ZoneVisualSpawnedEvent(position, offsetBetweenZones));
+        }
+
+        private void OnDestroy()
+        {
+            eventBus.Unsubscribe<ZoneBoughtEvent>(HandleZoneBoughtEvent);
         }
     }
 }

@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Code.Scripts.Zones
 {
-    public sealed class ZoneInfo : MonoBehaviour
+    public sealed class ZoneInfoPopup : MonoBehaviour
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private TMP_Text titleText;
