@@ -1304,7 +1304,7 @@ MonoBehaviour:
     <CycleLengthInMs>k__BackingField: 1000
     <ResourcePerCycle>k__BackingField: 1
     <ResourcePerNewUnit>k__BackingField: 100
-    <UnitPrefab>k__BackingField: {fileID: 3801092873023923219, guid: 685840dff48cb7f4fba368af84f49317, type: 3}
+    <UnitPrefab>k__BackingField: {fileID: 102226806473519479, guid: 8c8effee11a5e8e469e135d36db845db, type: 3}
   zonePrefab: {fileID: 1658688040338140129, guid: 678dc34f62f7f89459ea98bcb06fe7de, type: 3}
   zoneParent: {fileID: 1339580861}
   zoneVisualPrefab: {fileID: 4287208362942772731, guid: 0b14d3cad3bff2e4cbd118858e7fb176, type: 3}
