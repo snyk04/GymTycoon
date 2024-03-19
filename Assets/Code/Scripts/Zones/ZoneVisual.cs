@@ -46,7 +46,7 @@ namespace Code.Scripts.Zones
             for (var i = 0; i < amountOfUnits; i++)
             {
                 var unit = Instantiate(unitPrefab, unitParent);
-                var offset = (i % amountOfColumns) * columnOffset * Vector3.right + (i / amountOfColumns) * rowOffset * Vector3.back;
+                var offset = i % amountOfColumns * columnOffset * Vector3.right + i / amountOfColumns * rowOffset * Vector3.back;
                 unit.transform.localPosition = firstUnitPosition + offset;
             }
         }

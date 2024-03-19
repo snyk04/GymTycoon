@@ -20,6 +20,8 @@ namespace Code.Scripts.Zones.BuyZone
         private EventBus eventBus;
         private ZoneSettingsHolder zoneSettingsHolder;
         private ResourcesHolder resourcesHolder;
+
+        private Vector3 currentPosition;
         
         [Inject]
         private void Construct(EventBus eventBus, ZoneSettingsHolder zoneSettingsHolder, 
@@ -52,14 +54,15 @@ namespace Code.Scripts.Zones.BuyZone
             }
             zoneTypeDropdown.options = optionData;
             zoneTypeDropdown.value = 0;
+            ZoneTypeDropdownOnValueChanged(0);
         }
 
         private void BuyZoneButtonOnClick()
         {
             var zoneType = (ZoneType)zoneTypeDropdown.value;
-            eventBus.RaiseEvent(new ZoneBoughtEvent(zoneType));
+            eventBus.RaiseEvent(new ZoneBoughtEvent(zoneType, currentPosition));
             var zoneSettings = zoneSettingsHolder.ZoneSettingsByZoneTypes[zoneType];
-            resourcesHolder.ChangeResource(zoneSettings.ResourceType, zoneSettings.ResourcePerNewZone);
+            resourcesHolder.ChangeResource(zoneSettings.ResourceType, -zoneSettings.ResourcePerNewZone);
             canvasGroup.SetActive(false);
         }
 
@@ -75,8 +78,9 @@ namespace Code.Scripts.Zones.BuyZone
             buyZoneButtonText.text = resourcePerNewZone.ToString();
         }
 
-        private void HandleBuyZoneClickedEvent(BuyZoneClickedEvent _)
+        private void HandleBuyZoneClickedEvent(BuyZoneClickedEvent @event)
         {
+            currentPosition = @event.Position;
             canvasGroup.SetActive(true);
         }
     }

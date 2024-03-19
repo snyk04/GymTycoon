@@ -28,12 +28,12 @@ namespace Code.Scripts.Zones.BuyZone
                 return;
             }
             
-            if (!hitInfo.collider.TryGetComponent<BuyZoneButton>(out _))
+            if (!hitInfo.collider.TryGetComponent<BuyZoneButton>(out var buyZoneButton))
             {
                 return;
             }
                 
-            eventBus.RaiseEvent(new BuyZoneClickedEvent());
+            eventBus.RaiseEvent(new BuyZoneClickedEvent(buyZoneButton.transform.position));
         }
     }
 }

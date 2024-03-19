@@ -18,6 +18,7 @@ namespace Code.Scripts
             Container.Bind<ResourcesHolder>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ResourcesUpdater>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ZoneAmountOfUnitsSaver>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ZoneVisualPositionsHolder>().AsSingle().NonLazy();
 
             Container.Bind<ZoneSettingsHolder>().FromInstance(zoneSettingsHolder).AsSingle().NonLazy();
         }

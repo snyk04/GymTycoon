@@ -4,13 +4,11 @@ namespace Code.Scripts.Zones.Events
 {
     public sealed class ZoneVisualSpawnedEvent
     {
-        public Vector3 ZoneVisualPosition { get; }
-        public Vector3 ZoneVisualOffset { get; }
+        public Vector3 Position { get; }
 
-        public ZoneVisualSpawnedEvent(Vector3 zoneVisualPosition, Vector3 zoneVisualOffset)
+        public ZoneVisualSpawnedEvent(Vector3 position)
         {
-            ZoneVisualPosition = zoneVisualPosition;
-            ZoneVisualOffset = zoneVisualOffset;
+            Position = position;
         }
     }
 }
