@@ -1,4 +1,4 @@
-﻿namespace Code.Scripts.Save.Models
+﻿namespace Code.Scripts.Utils
 {
     public struct SerializableVector3
     {

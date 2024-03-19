@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.18158081, g: 0.22722653, b: 0.30741015, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1952,7 +1952,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 25, y: 25, z: 25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1175137967}
@@ -2223,13 +2223,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15.5, z: 0}
+  m_LocalRotation: {x: 0.38123167, y: 0, z: 0, w: 0.92447954}
+  m_LocalPosition: {x: 0, y: 15.5, z: -21.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1175137967}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 44.82, y: 0, z: 0}
 --- !u!1 &766042436
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,6 +2260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyZoneButtonPrefab: {fileID: 7115509007266970903, guid: 28a53fdb3000cba42ae1f74a0bf03693, type: 3}
+  offset: 15
 --- !u!4 &766042438
 Transform:
   m_ObjectHideFlags: 0
@@ -2305,7 +2306,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstZoneVisualPosition: {x: -15, y: 0.1, z: 5}
-  offsetBetweenZones: {x: 15, y: 0, z: 0}
   zonePrefab: {fileID: 1658688040338140129, guid: 678dc34f62f7f89459ea98bcb06fe7de, type: 3}
   zoneParent: {fileID: 1339580861}
   zoneVisualPrefab: {fileID: 4287208362942772731, guid: 0b14d3cad3bff2e4cbd118858e7fb176, type: 3}
@@ -2681,7 +2681,7 @@ MonoBehaviour:
   camera: {fileID: 963194227}
   zoomSpeed: 50
   minZoom: 1
-  maxZoom: 10
+  maxZoom: 20
 --- !u!1 &997146317
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,6 +3621,7 @@ Transform:
   - {fileID: 1228365232}
   - {fileID: 559885005}
   - {fileID: 549927451}
+  - {fileID: 2016283355}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392820942
@@ -4202,6 +4203,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927612723}
   m_CullTransparentMesh: 1
+--- !u!1 &2016283354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2016283355}
+  - component: {fileID: 2016283356}
+  m_Layer: 0
+  m_Name: ObjectHighlighter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2016283355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016283354}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1386333044}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2016283356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016283354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3654f13b7c24e85a8e641049af677df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2108141949
 GameObject:
   m_ObjectHideFlags: 0

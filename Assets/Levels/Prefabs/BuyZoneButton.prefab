@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1021283417407524201}
   - component: {fileID: 8947455995035336637}
   - component: {fileID: 7115509007266970903}
+  - component: {fileID: 6764866769490219625}
   m_Layer: 0
   m_Name: BuyZoneButton
   m_TagString: Untagged
@@ -119,3 +120,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f2ce833a014406cba508b6686471d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6764866769490219625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429013270522693045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09bc6bd2dd74c97a68c7a467eb18c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightColorTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  renderer: {fileID: 1021283417407524201}

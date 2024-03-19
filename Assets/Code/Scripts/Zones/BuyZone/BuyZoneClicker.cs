@@ -1,3 +1,4 @@
+using Code.Scripts.Utils;
 using Code.Scripts.Zones.Events;
 using UnityEngine;
 using Zenject;
@@ -21,9 +22,7 @@ namespace Code.Scripts.Zones.BuyZone
                 return;
             }
             
-            var ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
-            
-            if (!Physics.Raycast(ray, out var hitInfo))
+            if (!PhysicsExtensions.RaycastUnderMouse(out var hitInfo))
             {
                 return;
             }
