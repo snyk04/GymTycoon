@@ -1,5 +1,6 @@
 ﻿using System;
 using Code.Scripts.Zones;
+using Code.Scripts.Zones.Events;
 using Zenject;
 
 namespace Code.Scripts.Resources

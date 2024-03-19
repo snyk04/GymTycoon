@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Code.Scripts.Zones.Events;
+using Code.Scripts.Zones.Models;
+using UnityEngine;
 
 namespace Code.Scripts.Zones
 {

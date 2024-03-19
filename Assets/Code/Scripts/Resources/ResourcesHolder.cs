@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Code.Scripts.Save;
+using Code.Scripts.Save.Interfaces;
 
 namespace Code.Scripts.Resources
 {

@@ -1,6 +1,8 @@
 ﻿using System;
 using Code.Scripts.Resources;
 using Code.Scripts.Utils;
+using Code.Scripts.Zones.Events;
+using Code.Scripts.Zones.Models;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,6 +47,8 @@ namespace Code.Scripts.Zones
             
             resourcesHolder.ChangeResource(CurrentZoneSettings.ResourceType, -CurrentZoneSettings.ResourcePerNewUnit);
             currentZone.IncreaseAmountOfUnits();
+            eventBus.RaiseEvent(new ZoneAmountOfUnitsIncreasedEvent(currentZone));
+            
             amountOfUnitsText.text = GetAmountOfUnitsText(currentZone);
         }
 

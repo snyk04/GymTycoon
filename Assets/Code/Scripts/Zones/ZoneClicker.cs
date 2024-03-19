@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Code.Scripts.Zones.Events;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Scripts.Zones

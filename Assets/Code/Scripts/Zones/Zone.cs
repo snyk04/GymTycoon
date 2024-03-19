@@ -1,22 +1,17 @@
 ﻿using System;
+using Code.Scripts.Zones.Events;
+using Code.Scripts.Zones.Models;
 using UnityEngine;
 
 namespace Code.Scripts.Zones
 {
-    public sealed class ZoneAmountOfUnitsIncreasedEvent
-    {
-        public Zone Zone { get; }
-        
-        public ZoneAmountOfUnitsIncreasedEvent(Zone zone)
-        {
-            Zone = zone;
-        }
-    }
     public sealed class Zone : MonoBehaviour
     {
-        private EventBus eventBus;
+        public int Id { get; private set; }
         public ZoneSettings ZoneSettings { get; private set; }
         public int AmountOfUnits { get; private set; }
+        
+        private EventBus eventBus;
         private DateTime lastEarningTime;
 
         private bool isInitialized;
@@ -37,11 +32,12 @@ namespace Code.Scripts.Zones
             }
         }
 
-        public void Initialize(EventBus eventBus, ZoneSettings zoneSettings, int amountOfUnits)
+        public void Initialize(int id, ZoneSettings zoneSettings, int amountOfUnits, EventBus eventBus)
         {
+            Id = id;
+            ZoneSettings = zoneSettings;
+            AmountOfUnits = amountOfUnits;
             this.eventBus = eventBus;
-            this.ZoneSettings = zoneSettings;
-            this.AmountOfUnits = amountOfUnits;
 
             isInitialized = true;
         }

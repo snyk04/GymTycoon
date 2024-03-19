@@ -1,4 +1,4 @@
-﻿namespace Code.Scripts.Zones
+﻿namespace Code.Scripts.Zones.Events
 {
     public sealed class ZoneVisualClickedEvent
     {

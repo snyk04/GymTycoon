@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Code.Scripts.Save.Models;
 
-namespace Code.Scripts.Save
+namespace Code.Scripts.Save.Interfaces
 {
     public interface IGameSaveManager
     {

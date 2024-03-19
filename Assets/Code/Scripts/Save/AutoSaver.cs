@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Code.Scripts.Save.Interfaces;
 using Zenject;
 
 namespace Code.Scripts.Save

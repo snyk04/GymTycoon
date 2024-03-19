@@ -14,6 +14,7 @@ namespace Code.Scripts
             Container.BindInterfacesTo<AutoSaver>().AsSingle().NonLazy();
             Container.Bind<ResourcesHolder>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ResourcesUpdater>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<ZoneAmountOfUnitsSaver>().AsSingle().NonLazy();
         }
     }
 }
