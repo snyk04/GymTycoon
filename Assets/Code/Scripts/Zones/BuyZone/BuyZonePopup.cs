@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Code.Scripts.Zones
+namespace Code.Scripts.Zones.BuyZone
 {
     public sealed class BuyZonePopup : MonoBehaviour
     {

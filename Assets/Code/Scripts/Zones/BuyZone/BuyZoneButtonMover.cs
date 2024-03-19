@@ -2,7 +2,7 @@ using Code.Scripts.Zones.Events;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Scripts.Zones
+namespace Code.Scripts.Zones.BuyZone
 {
     public sealed class BuyZoneButtonMover : MonoBehaviour
     {
