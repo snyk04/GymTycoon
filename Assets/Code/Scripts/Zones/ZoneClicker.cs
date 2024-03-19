@@ -20,7 +20,7 @@ namespace Code.Scripts.Zones
                 return;
             }
             
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            var ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
             
             if (!Physics.Raycast(ray, out var hitInfo))
             {
