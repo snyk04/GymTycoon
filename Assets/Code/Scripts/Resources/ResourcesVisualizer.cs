@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -27,20 +26,20 @@ namespace Code.Scripts.Resources
         private string FormatNumber(int num)
         {
             var strNum = num.ToString().Replace("[^0-9.]", "");
-        
+
             if (num < 1000)
             {
                 return strNum;
             }
 
-            var si = new []
+            var si = new[]
             {
-                new {v = 1E3, s = "K"},
-                new {v = 1E6, s = "M"},
-                new {v = 1E9, s = "B"},
-                new {v = 1E12, s = "T"},
-                new {v = 1E15, s = "P"},
-                new {v = 1E18, s = "E"}
+                new { v = 1E3, s = "K" },
+                new { v = 1E6, s = "M" },
+                new { v = 1E9, s = "B" },
+                new { v = 1E12, s = "T" },
+                new { v = 1E15, s = "P" },
+                new { v = 1E18, s = "E" }
             };
 
             int index;
@@ -54,7 +53,7 @@ namespace Code.Scripts.Resources
 
             var result = num / si[index].v;
 
-            return result.ToString("F2").TrimEnd('0').TrimEnd('.') + si[index].s;
+            return result.ToString("F2").TrimEnd('.') + si[index].s;
         }
     }
 }
