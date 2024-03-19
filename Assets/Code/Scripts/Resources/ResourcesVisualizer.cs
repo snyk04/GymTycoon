@@ -23,26 +23,38 @@ namespace Code.Scripts.Resources
             moneyText.text = FormatNumber(resourcesHolder.GetResource(ResourceType.Money));
             diamondsText.text = FormatNumber(resourcesHolder.GetResource(ResourceType.Diamonds));
         }
-        
-        private string FormatNumber(float number)
+
+        private string FormatNumber(int num)
         {
-            if (number < 1000)
+            var strNum = num.ToString().Replace("[^0-9.]", "");
+        
+            if (num < 1000)
             {
-                return number.ToString(CultureInfo.InvariantCulture);
-            }
-            
-            string[] suffixes = { "", "K", "M", "B", "T" };
-
-            var suffixIndex = 0;
-            var formattedNumber = number;
-
-            while (formattedNumber >= 1000f && suffixIndex < suffixes.Length - 1)
-            {
-                formattedNumber /= 1000f;
-                suffixIndex++;
+                return strNum;
             }
 
-            return formattedNumber.ToString(CultureInfo.InvariantCulture) + suffixes[suffixIndex];
+            var si = new []
+            {
+                new {v = 1E3, s = "K"},
+                new {v = 1E6, s = "M"},
+                new {v = 1E9, s = "B"},
+                new {v = 1E12, s = "T"},
+                new {v = 1E15, s = "P"},
+                new {v = 1E18, s = "E"}
+            };
+
+            int index;
+            for (index = si.Length - 1; index > 0; index--)
+            {
+                if (num >= si[index].v)
+                {
+                    break;
+                }
+            }
+
+            var result = num / si[index].v;
+
+            return result.ToString("F2").TrimEnd('0').TrimEnd('.') + si[index].s;
         }
     }
 }
