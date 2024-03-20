@@ -7,5 +7,6 @@ namespace Code.Scripts.Save.Models
     {
         public Dictionary<ResourceType, long> ResourcesByTypes { get; } = new();
         public List<ZoneSaveData> ZoneSaveDataList { get; } = new();
+        public bool TutorialShown { get; set; }
     }
 }
