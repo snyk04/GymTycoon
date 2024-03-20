@@ -1,11 +1,9 @@
 ﻿using System;
-using Code.Scripts.Zones;
 using Code.Scripts.Zones.Events;
-using Zenject;
 
 namespace Code.Scripts.Resources
 {
-    public sealed class ResourcesUpdater : IInitializable, IDisposable
+    public sealed class ResourcesUpdater : IDisposable
     {
         private readonly EventBus eventBus;
         private readonly ResourcesHolder resourcesHolder;
@@ -14,10 +12,7 @@ namespace Code.Scripts.Resources
         {
             this.eventBus = eventBus;
             this.resourcesHolder = resourcesHolder;
-        }
-        
-        public void Initialize()
-        {
+            
             eventBus.Subscribe<ZoneProducedResourceEvent>(HandleZoneProducedResource);
         }
         

@@ -17,10 +17,13 @@ namespace Code.Scripts.Audio
             this.eventBus = eventBus;
             this.audioManager = audioManager;
             this.audioSettings = audioSettings;
-            
+        }
+
+        private void Awake()
+        {
             eventBus.Subscribe<ZoneVisualClickedEvent>(HandleZoneVisualClickedEvent);
         }
-        
+
         private void OnDestroy()
         {
             eventBus.Unsubscribe<ZoneVisualClickedEvent>(HandleZoneVisualClickedEvent);

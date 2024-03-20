@@ -12,9 +12,10 @@ namespace Code.Scripts.Zones
         [SerializeField] private float rowOffset;
         [SerializeField] private float columnOffset;
         
+        public Zone Zone { get; private set; }
+        
         private EventBus eventBus;
         private ZoneSettings zoneSettings;
-        public Zone Zone { get; private set; }
         
         public void Initialize(EventBus eventBus, ZoneSettings zoneSettings, Zone zone)
         {
@@ -22,12 +23,17 @@ namespace Code.Scripts.Zones
             this.zoneSettings = zoneSettings;
             Zone = zone;
 
-            eventBus.Subscribe<ZoneAmountOfUnitsIncreasedEvent>(HandleZoneAmountOfUnitsIncreasedEvent);
+            eventBus.Subscribe<ZoneAddUnitEvent>(HandleZoneAddUnitEvent);
             
             SpawnUnits(zone.AmountOfUnits, this.zoneSettings.UnitPrefab);
         }
+        
+        private void OnDestroy()
+        {
+            eventBus.Unsubscribe<ZoneAddUnitEvent>(HandleZoneAddUnitEvent);
+        }
 
-        private void HandleZoneAmountOfUnitsIncreasedEvent(ZoneAmountOfUnitsIncreasedEvent @event)
+        private void HandleZoneAddUnitEvent(ZoneAddUnitEvent @event)
         {
             if (@event.Zone == Zone)
             {
@@ -37,10 +43,7 @@ namespace Code.Scripts.Zones
 
         private void SpawnUnits(int amountOfUnits, GameObject unitPrefab)
         {
-            for (var i = 0; i < unitParent.childCount; i++)
-            {
-                Destroy(unitParent.GetChild(i).gameObject);
-            }
+            ClearUnits();
 
             for (var i = 0; i < amountOfUnits; i++)
             {
@@ -50,9 +53,12 @@ namespace Code.Scripts.Zones
             }
         }
 
-        private void OnDestroy()
+        private void ClearUnits()
         {
-            eventBus.Unsubscribe<ZoneAmountOfUnitsIncreasedEvent>(HandleZoneAmountOfUnitsIncreasedEvent);
+            for (var i = 0; i < unitParent.childCount; i++)
+            {
+                Destroy(unitParent.GetChild(i).gameObject);
+            }
         }
     }
 }

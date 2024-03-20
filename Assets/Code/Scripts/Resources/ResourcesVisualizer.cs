@@ -23,16 +23,16 @@ namespace Code.Scripts.Resources
             diamondsText.text = FormatNumber(resourcesHolder.GetResource(ResourceType.Diamonds));
         }
 
-        private string FormatNumber(long num)
+        private string FormatNumber(long number)
         {
-            var strNum = num.ToString().Replace("[^0-9.]", "");
+            var stringNumber = number.ToString().Replace("[^0-9.]", "");
 
-            if (num < 1000)
+            if (number < 1000)
             {
-                return strNum;
+                return stringNumber;
             }
 
-            var si = new[]
+            var suffixesAndNumbers = new[]
             {
                 new { v = 1E3, s = "K" },
                 new { v = 1E6, s = "M" },
@@ -43,17 +43,17 @@ namespace Code.Scripts.Resources
             };
 
             int index;
-            for (index = si.Length - 1; index > 0; index--)
+            for (index = suffixesAndNumbers.Length - 1; index > 0; index--)
             {
-                if (num >= si[index].v)
+                if (number >= suffixesAndNumbers[index].v)
                 {
                     break;
                 }
             }
 
-            var result = num / si[index].v;
+            var result = number / suffixesAndNumbers[index].v;
 
-            return result.ToString("F2").TrimEnd('.') + si[index].s;
+            return result.ToString("F2").TrimEnd('.') + suffixesAndNumbers[index].s;
         }
     }
 }

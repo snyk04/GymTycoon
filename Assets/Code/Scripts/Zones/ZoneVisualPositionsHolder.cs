@@ -15,10 +15,9 @@ namespace Code.Scripts.Zones
         public ZoneVisualPositionsHolder(EventBus eventBus)
         {
             this.eventBus = eventBus;
-            
             eventBus.Subscribe<ZoneVisualSpawnedEvent>(HandleZoneVisualSpawnedEvent);
         }
-
+        
         public void Dispose()
         {
             eventBus.Unsubscribe<ZoneVisualSpawnedEvent>(HandleZoneVisualSpawnedEvent);

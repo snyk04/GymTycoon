@@ -21,7 +21,10 @@ namespace Code.Scripts.Animations
         private void Construct(EventBus eventBus)
         {
             this.eventBus = eventBus;
+        }
 
+        private void Awake()
+        {
             eventBus.Subscribe<ZoneProducedResourceEvent>(HandleZoneProducedResourceEvent);
         }
 

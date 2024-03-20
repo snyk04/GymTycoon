@@ -19,12 +19,14 @@ namespace Code.Scripts.Tutorial
 
         private void Start()
         {
-            if (!gameSaveManager.SaveData.TutorialShown)
+            if (gameSaveManager.SaveData.TutorialShown)
             {
-                tutorialCanvasGroup.SetActive(true);
-                gameSaveManager.SaveData.TutorialShown = true;
-                gameSaveManager.Save();
+                return;
             }
+            
+            tutorialCanvasGroup.SetActive(true);
+            gameSaveManager.SaveData.TutorialShown = true;
+            gameSaveManager.Save();
         }
     }
 }

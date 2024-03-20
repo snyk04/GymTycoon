@@ -1,5 +1,4 @@
-﻿using System;
-using Code.Scripts.Zones.Events;
+﻿using Code.Scripts.Zones.Events;
 using Code.Scripts.Zones.Models;
 using UnityEngine;
 
@@ -12,12 +11,22 @@ namespace Code.Scripts.Zones
         public int Id { get; private set; }
         public ZoneSettings ZoneSettings { get; private set; }
         public int AmountOfUnits { get; private set; }
-        private Vector3 zonePosition;
+        private Vector3 position;
+        private float lastEarningTime;
+        private bool isInitialized;
         
         private EventBus eventBus;
-        private DateTime lastEarningTime;
 
-        private bool isInitialized;
+        public void Initialize(int id, ZoneSettings settings, int amountOfUnits, EventBus eventBus, Vector3 position)
+        {
+            Id = id;
+            ZoneSettings = settings;
+            AmountOfUnits = amountOfUnits;
+            this.eventBus = eventBus;
+            this.position = position;
+
+            isInitialized = true;
+        }
         
         private void Update()
         {
@@ -26,28 +35,22 @@ namespace Code.Scripts.Zones
                 return;
             }
 
-            if ((DateTime.Now - lastEarningTime).TotalMilliseconds > ZoneSettings.CycleLengthInMs)
+            if (Time.time - lastEarningTime <= ZoneSettings.CycleLengthInSeconds)
             {
-                var amountOfResource = AmountOfUnits * ZoneSettings.ResourcePerCycle;
-                var @event = new ZoneProducedResourceEvent(ZoneSettings.ResourceType, amountOfResource, zonePosition);
-                eventBus.RaiseEvent(@event);
-                lastEarningTime = DateTime.Now;
+                return;
             }
+
+            ProduceResource();
         }
 
-        public void Initialize(int id, ZoneSettings zoneSettings, int amountOfUnits, EventBus eventBus, 
-            Vector3 zonePosition)
+        private void ProduceResource()
         {
-            Id = id;
-            ZoneSettings = zoneSettings;
-            AmountOfUnits = amountOfUnits;
-            this.eventBus = eventBus;
-            this.zonePosition = zonePosition;
-
-            isInitialized = true;
+            var amountOfResource = AmountOfUnits * ZoneSettings.ResourcePerCycle;
+            eventBus.RaiseEvent(new ZoneProducedResourceEvent(ZoneSettings.ResourceType, amountOfResource, position));
+            lastEarningTime = Time.time;
         }
 
-        public void IncreaseAmountOfUnits()
+        public void AddUnit()
         {
             if (AmountOfUnits + 1 > MaxUnits)
             {

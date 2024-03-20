@@ -11,30 +11,30 @@ namespace Code.Scripts.Camera
 
         private void Update()
         {
-            if (Input.GetMouseButton(2))
+            if (!Input.GetMouseButton(2))
             {
-                if (lastMousePosition == default)
-                {
-                    lastMousePosition = Input.mousePosition;
-                    return;
-                }
+                lastMousePosition = default; 
+                return;
+            }
 
-                Move();
-
+            if (lastMousePosition == default)
+            {
                 lastMousePosition = Input.mousePosition;
                 return;
             }
 
-            lastMousePosition = default;
+            Move();
+
+            lastMousePosition = Input.mousePosition;
         }
 
         private void Move()
         {
             var delta = Input.mousePosition - lastMousePosition;
             var cameraPosition = camera.transform.position;
-            var newPosition = cameraPosition +
-                              -camera.transform.forward * (delta.y * movementSpeed * camera.orthographicSize * Time.deltaTime) +
-                              -camera.transform.right * (delta.x * movementSpeed * camera.orthographicSize * Time.deltaTime);
+            var newPosition = cameraPosition -
+                              camera.transform.forward * (delta.y * movementSpeed * camera.orthographicSize * Time.deltaTime) -
+                              camera.transform.right * (delta.x * movementSpeed * camera.orthographicSize * Time.deltaTime);
             newPosition.y = cameraPosition.y;
             camera.transform.position = newPosition;
         }

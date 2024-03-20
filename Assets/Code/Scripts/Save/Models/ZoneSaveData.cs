@@ -1,7 +1,6 @@
 using Code.Scripts.Utils;
 using Code.Scripts.Zones.Models;
 using Newtonsoft.Json;
-using UnityEngine;
 
 namespace Code.Scripts.Save.Models
 {

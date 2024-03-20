@@ -17,7 +17,10 @@ namespace Code.Scripts.Audio
             this.eventBus = eventBus;
             this.audioManager = audioManager;
             this.audioSettings = audioSettings;
-            
+        }
+
+        private void Awake()
+        {
             eventBus.Subscribe<BuyZoneClickedEvent>(HandleBuyZoneClickedEvent);
         }
 

@@ -19,8 +19,16 @@ namespace Code.Scripts.Zones.BuyZone
         {
             this.eventBus = eventBus;
             this.zoneVisualPositionsHolder = zoneVisualPositionsHolder;
-            
+        }
+
+        private void Awake()
+        {
             eventBus.Subscribe<ZoneVisualSpawnedEvent>(HandleZoneVisualSpawnedEvent);
+        }
+        
+        private void OnDestroy()
+        {
+            eventBus.Unsubscribe<ZoneVisualSpawnedEvent>(HandleZoneVisualSpawnedEvent);
         }
 
         private void HandleZoneVisualSpawnedEvent(ZoneVisualSpawnedEvent @event)
@@ -31,10 +39,18 @@ namespace Code.Scripts.Zones.BuyZone
                 Instantiate(buyZoneButtonPrefab, position, Quaternion.identity, transform);
             }
         }
+        
+        private void ClearButtons()
+        {
+            for (var i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
 
         private List<Vector3> GetNewBuyZoneButtonsPositions()
         {
-            var newBuyZoneButtonsPositions = new List<Vector3>();
+            var result = new List<Vector3>();
             foreach (var zoneVisualPosition in zoneVisualPositionsHolder.ZoneVisualPositions)
             {
                 foreach (var neighbourPosition in GetNeighbourPositions(zoneVisualPosition))
@@ -44,24 +60,15 @@ namespace Code.Scripts.Zones.BuyZone
                         continue;
                     }
 
-                    if (newBuyZoneButtonsPositions.Contains(neighbourPosition))
+                    if (result.Contains(neighbourPosition))
                     {
                         continue;
                     }
                     
-                    newBuyZoneButtonsPositions.Add(neighbourPosition);
+                    result.Add(neighbourPosition);
                 }
             }
-
-            return newBuyZoneButtonsPositions;
-        }
-
-        private void ClearButtons()
-        {
-            for (var i = 0; i < transform.childCount; i++)
-            {
-                Destroy(transform.GetChild(i).gameObject);
-            }
+            return result;
         }
 
         private IEnumerable<Vector3> GetNeighbourPositions(Vector3 position)
@@ -73,11 +80,6 @@ namespace Code.Scripts.Zones.BuyZone
                 position + Vector3.forward * offset,
                 position + Vector3.back * offset
             };
-        }
-
-        private void OnDestroy()
-        {
-            eventBus.Unsubscribe<ZoneVisualSpawnedEvent>(HandleZoneVisualSpawnedEvent);
         }
     }
 }

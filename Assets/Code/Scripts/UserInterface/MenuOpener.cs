@@ -19,11 +19,13 @@ namespace Code.Scripts.UserInterface
         
         private async void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (!Input.GetKeyDown(KeyCode.Escape))
             {
-                await gameSaveManager.SaveAsync();
-                SceneManager.LoadScene(menuSceneIndex);
+                return;
             }
+            
+            await gameSaveManager.SaveAsync();
+            SceneManager.LoadScene(menuSceneIndex);
         }
     }
 }

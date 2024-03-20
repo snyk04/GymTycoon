@@ -7,6 +7,16 @@ namespace Code.Scripts.Utils
 {
     public static class Lerper
     {
+        public static async Task To(Color startValue, Action<Color> setter, Color goal, float duration, CancellationToken cancellationToken)
+        {
+            await To(value => setter(Color.Lerp(startValue, goal, value)), duration, cancellationToken);
+        }
+        
+        public static async Task To(Vector3 startValue, Action<Vector3> setter, Vector3 goal, float duration, CancellationToken cancellationToken)
+        {
+            await To(value => setter(Vector3.Lerp(startValue, goal, value)), duration, cancellationToken);
+        }
+        
         public static async Task To(Action<float> setter, float duration, CancellationToken cancellationToken)
         {
             var startTime = Time.time;
@@ -17,16 +27,6 @@ namespace Code.Scripts.Utils
                 setter(progress);
                 await Task.Yield();
             }
-        }
-        
-        public static async Task To(Color startValue, Action<Color> setter, Color goal, float duration, CancellationToken cancellationToken)
-        {
-            await To(value => setter(Color.Lerp(startValue, goal, value)), duration, cancellationToken);
-        }
-        
-        public static async Task To(Vector3 startValue, Action<Vector3> setter, Vector3 goal, float duration, CancellationToken cancellationToken)
-        {
-            await To(value => setter(Vector3.Lerp(startValue, goal, value)), duration, cancellationToken);
         }
     }
 }

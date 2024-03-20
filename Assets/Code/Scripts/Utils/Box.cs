@@ -1,6 +1,6 @@
 namespace Code.Scripts.Utils
 {
-    public sealed class Box<T> : IReadOnlyBox<T>
+    public sealed class Box<T>
     {
         public T Value { get; set; }
 
@@ -9,6 +9,7 @@ namespace Code.Scripts.Utils
             Value = value;
         }
     }
+
     public static class Box
     {
         public static Box<T> From<T>(T value)

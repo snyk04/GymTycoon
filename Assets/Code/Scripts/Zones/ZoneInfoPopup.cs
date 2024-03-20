@@ -13,9 +13,9 @@ namespace Code.Scripts.Zones
     {
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private TMP_Text titleText;
-        [SerializeField] private TMP_Text amountOfUnitsText;
-        [SerializeField] private Button increaseAmountOfUnitsButton;
-        [SerializeField] private TMP_Text increaseAmountOfUnitsButtonText;
+        [SerializeField] private TMP_Text unitsText;
+        [SerializeField] private Button addUnitButton;
+        [SerializeField] private TMP_Text addUnitButtonText;
 
         private EventBus eventBus;
         private ResourcesHolder resourcesHolder;
@@ -28,35 +28,20 @@ namespace Code.Scripts.Zones
         {
             this.eventBus = eventBus;
             this.resourcesHolder = resourcesHolder;
-            
-            eventBus.Subscribe<ZoneVisualClickedEvent>(HandleZoneVisualClickedEvent);
         }
 
         private void Awake()
         {
-            increaseAmountOfUnitsButton.onClick.AddListener(IncreaseAmountOfUnits);
+            eventBus.Subscribe<ZoneVisualClickedEvent>(HandleZoneVisualClickedEvent);
+            addUnitButton.onClick.AddListener(AddUnit);
         }
         
         private void OnDestroy()
         {
             eventBus.Unsubscribe<ZoneVisualClickedEvent>(HandleZoneVisualClickedEvent);
-            increaseAmountOfUnitsButton.onClick.RemoveListener(IncreaseAmountOfUnits);
+            addUnitButton.onClick.RemoveListener(AddUnit);
         }
-
-        private void IncreaseAmountOfUnits()
-        {
-            if (currentZone == null)
-            {
-                return;
-            }
-            
-            resourcesHolder.ChangeResource(CurrentZoneSettings.ResourceType, -CurrentZoneSettings.ResourcePerNewUnit);
-            currentZone.IncreaseAmountOfUnits();
-            eventBus.RaiseEvent(new ZoneAmountOfUnitsIncreasedEvent(currentZone));
-            
-            amountOfUnitsText.text = GetAmountOfUnitsText(currentZone);
-        }
-
+        
         private void HandleZoneVisualClickedEvent(ZoneVisualClickedEvent @event)
         {
             canvasGroup.SetActive(true);
@@ -64,13 +49,27 @@ namespace Code.Scripts.Zones
             currentZone = @event.ZoneVisual.Zone;
 
             titleText.text = CurrentZoneSettings.Title;
-            amountOfUnitsText.text = GetAmountOfUnitsText(@event.ZoneVisual.Zone);
-            increaseAmountOfUnitsButtonText.text = CurrentZoneSettings.ResourcePerNewUnit.ToString();
+            unitsText.text = GetUnitsText(@event.ZoneVisual.Zone);
+            addUnitButtonText.text = CurrentZoneSettings.ResourcePerNewUnit.ToString();
         }
 
-        private string GetAmountOfUnitsText(Zone zone)
+        private string GetUnitsText(Zone zone)
         {
             return $"Units: {zone.AmountOfUnits}/{Zone.MaxUnits}";
+        }
+
+        private void AddUnit()
+        {
+            if (currentZone == null)
+            {
+                return;
+            }
+            
+            resourcesHolder.ChangeResource(CurrentZoneSettings.ResourceType, -CurrentZoneSettings.ResourcePerNewUnit);
+            currentZone.AddUnit();
+            eventBus.RaiseEvent(new ZoneAddUnitEvent(currentZone));
+            
+            unitsText.text = GetUnitsText(currentZone);
         }
 
         private void Update()
@@ -80,16 +79,16 @@ namespace Code.Scripts.Zones
                 return;
             }
             
-            increaseAmountOfUnitsButton.interactable = EnoughResource() && NewUnitsCanBeBought();
+            addUnitButton.interactable = EnoughResource() && CanAddUnit();
         }
 
         private bool EnoughResource()
         {
-            var amountOfResource = resourcesHolder.GetResource(CurrentZoneSettings.ResourceType);
-            return amountOfResource > CurrentZoneSettings.ResourcePerNewUnit;
+            var resource = resourcesHolder.GetResource(CurrentZoneSettings.ResourceType);
+            return resource > CurrentZoneSettings.ResourcePerNewUnit;
         }
 
-        private bool NewUnitsCanBeBought()
+        private bool CanAddUnit()
         {
             return currentZone.AmountOfUnits < Zone.MaxUnits;
         }

@@ -31,10 +31,13 @@ namespace Code.Scripts.Zones
             this.gameSaveManager = gameSaveManager;
             this.eventBus = eventBus;
             this.zoneSettingsHolder = zoneSettingsHolder;
-            
+        }
+
+        private void Awake()
+        {
             eventBus.Subscribe<ZoneBoughtEvent>(HandleZoneBoughtEvent);
         }
-        
+
         private void OnDestroy()
         {
             eventBus.Unsubscribe<ZoneBoughtEvent>(HandleZoneBoughtEvent);
@@ -49,8 +52,6 @@ namespace Code.Scripts.Zones
             var zoneSettings = zoneSettingsHolder.ZoneSettingsByZoneTypes[@event.ZoneType];
             Spawn(zoneSettings, AmountOfUnitsByDefault, GetLastZoneIndex(), @event.Position);
         }
-
-        
         
         private int GetLastZoneIndex()
         {

@@ -15,10 +15,15 @@ namespace Code.Scripts.Resources
             
             if (resourcesByTypes.Count == 0)
             {
-                resourcesByTypes.Add(ResourceType.Money, 100);
-                resourcesByTypes.Add(ResourceType.Diamonds, 100);
-                gameSaveManager.Save();
+                SetStartResources();
             }
+        }
+
+        private void SetStartResources()
+        {
+            resourcesByTypes.Add(ResourceType.Money, 100);
+            resourcesByTypes.Add(ResourceType.Diamonds, 100);
+            gameSaveManager.Save();
         }
     
         public long GetResource(ResourceType type)

@@ -12,7 +12,7 @@ namespace Code.Scripts.Camera
         
         private void Update()
         {
-            if (!(Input.mouseScrollDelta.magnitude > 0))
+            if (Input.mouseScrollDelta.magnitude <= 0)
             {
                 return;
             }

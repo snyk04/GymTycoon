@@ -474,9 +474,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 167656041}
   titleText: {fileID: 178179391}
-  amountOfUnitsText: {fileID: 1312902875}
-  increaseAmountOfUnitsButton: {fileID: 8839216856504539100}
-  increaseAmountOfUnitsButtonText: {fileID: 3753606982059249664}
+  unitsText: {fileID: 1312902875}
+  addUnitButton: {fileID: 8839216856504539100}
+  addUnitButtonText: {fileID: 3753606982059249664}
 --- !u!225 &167656041
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1942,7 +1942,7 @@ MonoBehaviour:
     <ZoneSettings>k__BackingField:
       <Title>k__BackingField: Treadmill
       <ResourceType>k__BackingField: 0
-      <CycleLengthInMs>k__BackingField: 1000
+      <CycleLengthInSeconds>k__BackingField: 1
       <ResourcePerCycle>k__BackingField: 2
       <ResourcePerNewUnit>k__BackingField: 20
       <ResourcePerNewZone>k__BackingField: 200
@@ -1951,7 +1951,7 @@ MonoBehaviour:
     <ZoneSettings>k__BackingField:
       <Title>k__BackingField: Bench press
       <ResourceType>k__BackingField: 0
-      <CycleLengthInMs>k__BackingField: 2000
+      <CycleLengthInSeconds>k__BackingField: 2
       <ResourcePerCycle>k__BackingField: 4
       <ResourcePerNewUnit>k__BackingField: 40
       <ResourcePerNewZone>k__BackingField: 400
@@ -1960,7 +1960,7 @@ MonoBehaviour:
     <ZoneSettings>k__BackingField:
       <Title>k__BackingField: Pull up
       <ResourceType>k__BackingField: 0
-      <CycleLengthInMs>k__BackingField: 4000
+      <CycleLengthInSeconds>k__BackingField: 3
       <ResourcePerCycle>k__BackingField: 8
       <ResourcePerNewUnit>k__BackingField: 80
       <ResourcePerNewZone>k__BackingField: 800
@@ -2240,7 +2240,7 @@ GameObject:
   - component: {fileID: 655668047}
   - component: {fileID: 655668046}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BuyZonePrice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2467,7 +2467,7 @@ GameObject:
   - component: {fileID: 766042438}
   - component: {fileID: 766042437}
   m_Layer: 0
-  m_Name: BuyZoneButtonMover
+  m_Name: BuyZoneButtonSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3767,7 +3767,7 @@ GameObject:
   - component: {fileID: 1312902876}
   - component: {fileID: 1312902875}
   m_Layer: 5
-  m_Name: AmountOfTexts
+  m_Name: UnitsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4024,17 +4024,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1194226229}
+  - {fileID: 1905181892}
   - {fileID: 641267404}
-  - {fileID: 1565349387}
   - {fileID: 1477324417}
+  - {fileID: 1565349387}
   - {fileID: 1228365232}
   - {fileID: 559885005}
   - {fileID: 549927451}
   - {fileID: 2016283355}
-  - {fileID: 1194226229}
   - {fileID: 899739270}
   - {fileID: 1303308664}
-  - {fileID: 1905181892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392820942
@@ -5373,7 +5373,7 @@ GameObject:
   - component: {fileID: 5550413823716583418}
   - component: {fileID: 3753606982059249664}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AddUnitPrice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5393,7 +5393,7 @@ GameObject:
   - component: {fileID: 8839216856504539100}
   - component: {fileID: 8839216856504539101}
   m_Layer: 5
-  m_Name: IncreaseAmountOfUnits
+  m_Name: AddUnitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
