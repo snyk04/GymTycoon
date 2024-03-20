@@ -33,7 +33,7 @@ namespace Code.Scripts.Animations
 
         private void HandleZoneProducedResourceEvent(ZoneProducedResourceEvent @event)
         {
-            var coin = Instantiate(coinPrefab, @event.ZonePosition + Vector3.up, Quaternion.identity);
+            var coin = Instantiate(coinPrefab, @event.ZonePosition + Vector3.up, Quaternion.identity, transform);
             HideAndMoveCoin(coin).CatchAndLog();
         }
 
