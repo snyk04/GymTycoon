@@ -10,18 +10,31 @@ namespace Code.Scripts.Audio
     public sealed class ButtonAudio : MonoBehaviour, IPointerDownHandler
     {
         [SerializeField] private Selectable selectable;
-        [SerializeField] private ButtonAudioSettings audioSettings;
 
         private AudioManager audioManager;
+        private ButtonAudioSettings audioSettings;
 
         [Inject]
-        public void Construct(AudioManager audioManager)
+        public void Construct(AudioManager audioManager, ButtonAudioSettings audioSettings)
         {
             this.audioManager = audioManager;
+            this.audioSettings = audioSettings;
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (selectable is null)
+            {
+                Debug.Log("selectable is null");
+                return;
+            }
+            
+            if (audioSettings is null)
+            {
+                Debug.Log("audioSettings is null");
+                return;
+            }
+            
             if (selectable.interactable)
             {
                 PlayRandom(audioSettings.PressAudioClips);

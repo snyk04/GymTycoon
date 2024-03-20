@@ -10,6 +10,7 @@ namespace Code.Scripts.DependencyInjection
     public class GameInstaller : MonoInstaller
     {
         [SerializeField] private ZoneSettingsHolder zoneSettingsHolder;
+        [SerializeField] private ButtonAudioSettings buttonAudioSettings;
         
         public override void InstallBindings()
         {
@@ -23,6 +24,7 @@ namespace Code.Scripts.DependencyInjection
             Container.Bind<AudioManager>().AsSingle().NonLazy();
 
             Container.Bind<ZoneSettingsHolder>().FromInstance(zoneSettingsHolder).AsSingle().NonLazy();
+            Container.Bind<ButtonAudioSettings>().FromInstance(buttonAudioSettings).AsSingle().NonLazy();
         }
     }
 }

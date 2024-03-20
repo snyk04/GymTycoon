@@ -3,8 +3,7 @@ using UnityEngine;
 
 namespace Code.Scripts.Audio
 {
-    [CreateAssetMenu(menuName = "GymTycoon/ButtonAudioSettings", fileName = "ButtonAudioSettings", order = 0)]
-    public sealed class ButtonAudioSettings : ScriptableObject
+    public sealed class ButtonAudioSettings : MonoBehaviour
     {
         [SerializeField] private AudioClip[] pressAudioClips;
 

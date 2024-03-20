@@ -524,6 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ec647a1786437daa6f4d0925e5c315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonAudioSettings: {fileID: 1513251909}
 --- !u!114 &505222676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1270,7 +1271,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectable: {fileID: 1444351570}
-  audioSettings: {fileID: 11400000, guid: 3b6f3fbe28437ef4682b783862048b62, type: 2}
+--- !u!114 &1513251909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6266205140894653041, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+  m_PrefabInstance: {fileID: 4647265039875209058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490be8ce2fbd492ca7706f72b2284b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1688749500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,7 +1606,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectable: {fileID: 1776332594}
-  audioSettings: {fileID: 11400000, guid: 3b6f3fbe28437ef4682b783862048b62, type: 2}
 --- !u!1 &1795264379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1731,7 +1741,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectable: {fileID: 1795264381}
-  audioSettings: {fileID: 11400000, guid: 3b6f3fbe28437ef4682b783862048b62, type: 2}
 --- !u!1 &1963796751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1917,6 +1926,63 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &4647265039875209058
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064206280005445405, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6810185605991671967, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
+      propertyPath: m_Name
+      value: ButtonAudioSettings
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ba3a1e0ec0c1e44f89bc5c5e5f07ee5, type: 3}
 --- !u!224 &5515833113156708675
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1977,7 +2043,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectable: {fileID: 3619026088367941743}
-  audioSettings: {fileID: 11400000, guid: 3b6f3fbe28437ef4682b783862048b62, type: 2}
 --- !u!114 &8972600107354730419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2076,3 +2141,4 @@ SceneRoots:
   - {fileID: 902939541}
   - {fileID: 858672269}
   - {fileID: 505222677}
+  - {fileID: 4647265039875209058}

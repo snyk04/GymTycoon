@@ -7,16 +7,16 @@ namespace Code.Scripts.Audio
 {
     public sealed class BuyZoneClickedAudioPlayer : MonoBehaviour
     {
-        [SerializeField] private ButtonAudioSettings audioSettings;
-
         private EventBus eventBus;
         private AudioManager audioManager;
+        private ButtonAudioSettings audioSettings;
 
         [Inject]
-        private void Construct(EventBus eventBus, AudioManager audioManager)
+        private void Construct(EventBus eventBus, AudioManager audioManager, ButtonAudioSettings audioSettings)
         {
             this.eventBus = eventBus;
             this.audioManager = audioManager;
+            this.audioSettings = audioSettings;
             
             eventBus.Subscribe<BuyZoneClickedEvent>(HandleBuyZoneClickedEvent);
         }
